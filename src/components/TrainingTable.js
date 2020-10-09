@@ -4,9 +4,13 @@ import PropTypes from 'prop-types';
 const formatter = new Intl.DateTimeFormat("ru");
 
 function TrainingTable(props) {
-    const {trainingData, removeHandler} = props;
+    const {trainingData, setTrainingData} = props;
     let rows = [];
    
+    const removeHandler = id => {
+        setTrainingData(prevData => prevData.filter(o => o.id !== id));
+    }
+
     if (trainingData) {
         trainingData.sort(function(a,b){return b.date.getTime() - a.date.getTime()});    
         trainingData.forEach(element => {
@@ -45,6 +49,6 @@ function TrainingTable(props) {
 
 TrainingTable.propTypes = {
     trainingData: PropTypes.array.isRequired,
-    removeHandler: PropTypes.func.isRequired
+    setTrainingData: PropTypes.func.isRequired
 }
 export default TrainingTable;
